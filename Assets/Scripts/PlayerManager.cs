@@ -7,6 +7,8 @@ public class PlayerManager {//no estoy usando esta cosa, seria util si usara var
     public Transform SpawnPosition;
     [HideInInspector] public int m_PlayerNumber;
     [HideInInspector] public GameObject m_Player;//esta sera la instancia de un objeto jugador
+    [HideInInspector] public Rigidbody m_CanicaPlayer;//referencia a la canica del jugador
+    //tambien deberian tener referencias al gamezone, para que ellos cuenten cuando sea su turno
     public int m_LanzamientosRealizados;
     public int m_ObjetivosObtenidos;//cada jugaro contara sus puntajes, en el gamenayer cuando salgan todos solo vera quien obtuvo el mayor de los puntajes
 
