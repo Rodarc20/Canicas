@@ -30,9 +30,9 @@ public class GameManager : MonoBehaviour {
         SpawnPlayer();
         SpawnObjectives();
     }
-    public void SpawnPlayer(){
+    public void SpawnPlayer(){//instancio a todos los jugadores, pero solo al que le toca turano esta con SetActive() true;
         m_Player = Instantiate(m_PlayerPrefab, m_SpawnPosition.position, m_SpawnPosition.rotation) as GameObject;
-        m_Player.GetComponent<PlayerAim>().m_CenterGameZone = m_GameZone.GetComponent<Transform>();
+        m_Player.GetComponent<PlayerAim>().m_CenterGameZone = m_GameZone.GetComponent<Transform>();//estas referencias, pebere establecerlas cada ve que cambio de jugador, no se si sea conveniete, o intentar trabajar conel PlayerManager para que las administre, leer anotacion del playaer manager
         m_Player.GetComponent<PlayerAim>().m_SpawnPoint = m_SpawnPosition;
         m_Player.GetComponent<PlayerThrow>().m_Fuerza = m_ForceSlider;
         NuevoLanzamiento();
