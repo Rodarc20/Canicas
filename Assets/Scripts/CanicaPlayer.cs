@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CanicaPlayer : MonoBehaviour {
     public bool m_Fired;//si ha sido disparado

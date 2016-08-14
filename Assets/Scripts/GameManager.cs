@@ -67,7 +67,8 @@ public class GameManager : MonoBehaviour {
 
     private bool EsValido(Transform posicion){
         bool result = true;
-        for(int i = 0; i < m_Objetivos.Length; i++){//odira reducir un if aqui a dentro, si recibiera el i desde el ques se llamo en el spawnobjectives
+        for(int i = 0; i < m_Objetivos.Length /*&& result*/; i++){//odira reducir un if aqui a dentro, si recibiera el i desde el ques se llamo en el spawnobjectives
+            // si result se hace falso, eso quiere decir que con alguien colisisona, por lo tanto el for debe terminar, asi evito el if de alli comentado abajo
             if(m_Objetivos[i]){
                 result = result && Vector3.Distance(posicion.position, m_Objetivos[i].position) >= 1f;
                 /*if(Vector3.Distance(posicion.position, m_Objetivos[i].position) >= 1f){//aun que si tuviera un if para que retorne defrente la funcion no pasaria por todas siempre, no se de que forma es mejor
@@ -104,7 +105,7 @@ public class GameManager : MonoBehaviour {
         m_Score.text = s;
     }
     //debo almacenar todos los rigidbody de todas las canicas, cuando en
-    public void FixedUpdate(){
+    public void FixedUpdate(){//las preguntas deberian estar encapsuladas con respecto al jugador, quiza 
         //aqui debo verificar que todas las pelotas esten quietas para dar por finalizado el turno
         //tambien deberia comprobar que mi cnica haya sido disparada para incrementar el lnuemro lanzamiento
         bool finalizoLanzamiento = true;
