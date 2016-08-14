@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour {
 
     private bool EsValido(Transform posicion){
         bool result = true;
-        for(int i = 0; i < m_Objetivos.Length /*&& result*/; i++){//odira reducir un if aqui a dentro, si recibiera el i desde el ques se llamo en el spawnobjectives
+        for(int i = 0; i < m_Objetivos.Length && result; i++){//odira reducir un if aqui a dentro, si recibiera el i desde el ques se llamo en el spawnobjectives
             // si result se hace falso, eso quiere decir que con alguien colisisona, por lo tanto el for debe terminar, asi evito el if de alli comentado abajo
             if(m_Objetivos[i]){
                 result = result && Vector3.Distance(posicion.position, m_Objetivos[i].position) >= 1f;
