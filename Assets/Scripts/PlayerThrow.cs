@@ -40,7 +40,7 @@ public class PlayerThrow : MonoBehaviour {
             m_CurrentThrowForce = m_MaxForce;//se dispara solo cuando el jugador suslete la tecla
             m_Fuerza.value = m_CurrentThrowForce;//hay problemas con este if,buscar solucion
         }
-        else if(Input.GetButtonDown(m_ThrowButton)){//cuando presioo por primera vez el boton
+        else if(Input.GetButtonDown(m_ThrowButton)){//cuando presioo por primera vez el boton,, su bi com pu
             m_Throwed = false;
             m_CurrentThrowForce = m_MinForce;
             m_Fuerza.value = m_CurrentThrowForce;
@@ -54,6 +54,7 @@ public class PlayerThrow : MonoBehaviour {
             //m_Throwed = true;
             Fire();
         }
+        //hay un erro que impide que dispare, por ejemplo si mntego presionado espacio antes de que me habiliten el disparo
     }
     private void Fire(){
         m_Throwed = true;

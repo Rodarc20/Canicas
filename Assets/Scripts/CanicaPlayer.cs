@@ -31,7 +31,6 @@ public class CanicaPlayer : MonoBehaviour {
                 //m_Move = false;
                 //m_Rigidbody.velocity = Vector3.zero;
                 //m_Rigidbody.angularVelocity = Vector3.zero;
-                //print("Velocidad 0");//en las colisiones a veces se queda quieta, provocario un falso sleeping, que haria que se elimine antes, de los debido
                 //hay un pequeño error al comienzo del lanzamiento, me deja entrara a esta funcion uan vez antes de que entre en contacto con el piso despues de lanzarla
             }
         }

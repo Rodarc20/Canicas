@@ -116,6 +116,7 @@ public class GameManager : MonoBehaviour {
         Destroy(m_Jugadores[m_CurrentPlayer].m_CanicaPlayer.gameObject);
         //aui debo comprabar que hya ganador
         //creo que solo debo llamar a endmessage
+        m_Score.text = "";
         SetEndMessage();
         //if(m_NumeroCanicas == 0){
             //bool win = GetWinner();//
@@ -158,16 +159,16 @@ public class GameManager : MonoBehaviour {
         //if(m-puntos ++ numero de canicas)
     }
     public void SetTextScore(){
-        string s = "Jugador " + (m_CurrentPlayer + 1) + "\nPuntos: " + m_Jugadores[m_CurrentPlayer].m_ObjetivosObtenidos + "\nLanzamientos: " + m_Jugadores[m_CurrentPlayer].m_LanzamientosRealizados;
+        string s = m_Jugadores[m_CurrentPlayer].m_ColoredPlayerText + "\nPuntos: " + m_Jugadores[m_CurrentPlayer].m_ObjetivosObtenidos;// + "\nLanzamientos: " + m_Jugadores[m_CurrentPlayer].m_LanzamientosRealizados;
         m_Score.text = s;
     }
     public void SetEndMessage(){//se musetra al final de cada turno
         //por ahora no mostrara de forma ordenada las posiciones de los jugadores, 
-        m_Score.color = Color.clear;
+        //m_Score.color = Color.clear;
         string message = "";//quiza solo deberia llamar a get winner en caso de que tenga las cnicas sean 0, en este caso la funcion get wiiner, que se ejecuta despues de esta, agregara al cominezo de mensaje
         if(m_NumeroCanicas == 0){
             if(GetWinner()){//hubo ganador absoluto
-                message = "Jugador " + m_GameWinner.m_PlayerNumber + " gana!!!";//esta linea deberia tener un tamañomas grande
+                message = m_GameWinner.m_ColoredPlayerText + " gana!!!";//esta linea deberia tener un tamañomas grande
             }
             else{
                 message = "Empate";
@@ -177,16 +178,18 @@ public class GameManager : MonoBehaviour {
         message += "Jugador\tPuntos\n";
         //ahora solo agrego la tabla de posiciones
         for(int i = 0; i < m_Jugadores.Length; i++){
-            message += "Jugador " + m_Jugadores[i].m_PlayerNumber/*i+1*/ + "\t" + m_Jugadores[i].m_ObjetivosObtenidos + "\n";
+            message += m_Jugadores[i].m_ColoredPlayerText/*i+1*/ + "\t" + m_Jugadores[i].m_ObjetivosObtenidos + "\n";
         }
         m_WinText.text = message;
         m_WinText.color = Color.white;
     }
     public void FixedUpdate(){//las preguntas deberian estar encapsuladas con respecto al jugador, quiza 
-        bool finalizoLanzamiento = true;//esto ahora deberia ser finalizoTurno chequear si alguien gano el juego, si ya temrino el juego, por mas que la ultima canica haya salido antes de que la pelota del jugador se haya detenedo, es alli debe terminar el turno y comprobar quein gano
+        //esta variable deberia ponerse true, cuando un jugador lance, no antes
+        //bool finalizoLanzamiento = true;//esto ahora deberia ser finalizoTurno chequear si alguien gano el juego, si ya temrino el juego, por mas que la ultima canica haya salido antes de que la pelota del jugador se haya detenedo, es alli debe terminar el turno y comprobar quein gano
         //m_FinalizoLanzamiento = m_FinalizoLanzamiento && (m_CanicaPlayer.IsSleeping() && m_CanicaPlayer.GetComponent<CanicaPlayer>().m_Fired);//di la calinca no se mueve, y ya fue disparada,entoces debe finalizar el alnzamineto
         //print(m_CurrentPlayer);
-        finalizoLanzamiento = finalizoLanzamiento && m_Jugadores[m_CurrentPlayer].FinalizoLanzamiento();//di la calinca no se mueve, y ya fue disparada,entoces debe finalizar el alnzamineto
+        //finalizoLanzamiento = finalizoLanzamiento && m_Jugadores[m_CurrentPlayer].FinalizoLanzamiento();//di la calinca no se mueve, y ya fue disparada,entoces debe finalizar el alnzamineto
+        bool finalizoLanzamiento = m_Jugadores[m_CurrentPlayer].FinalizoLanzamiento();//di la calinca no se mueve, y ya fue disparada,entoces debe finalizar el alnzamineto
 
         for(int i = 0; i < m_Objetivos.Length; i++){
             if(m_Objetivos[i]){//este IsSleeping, por que creo que nunca la la velocidad e la poelota entra en el rango minimo que estableci, para la canica funciona bien, pero para los objtivos aprece que no
@@ -198,17 +201,21 @@ public class GameManager : MonoBehaviour {
             m_FinalizoLanzamiento = finalizoLanzamiento;
             //como ya finlizo, dberia actualizar los valores
             //Destroy(m_CanicaPlayer.gameObject, 1f);//para que desaparezcan dos segundo despues//esto funciona en Colliders no en Rigidbody por lo visto
-            SetTextScore();
+            //SetTextScore();//esta funcino se actualiza con cada fixed update, sin empbar en turnending se sigue llamando
             //como ya finalizo el lanzamiento, toca un cambio de turno, pero or ahora solo le dare una nueva pelota al jugadro
         }//revisar las logicas, a veces no entra en esta cosa
+        else{//el objetivo de hacer eso es que se actualice, pero podria dejarlo en otro momento o funcion
+            SetTextScore();//si no ha finalizado el turno, se muestra el score, 
+        }
     }
     private IEnumerator TurnStarting(){//mostrara un mensaje de a que jugador le toca jugar, por ahora todos usaran las mismas teclas, pero esto es opcinal, se puede modificar
         //esta funcion demorara unos 2 o 3 segundo, solo en mostrar este mensaje, los ocmtroles deberian estar deshabilitados, tener cuidado con esto, no queremos destruircanicas inecesariamente
         //a qui se llama a los setup del jugaodr de turno, o a la fucnion nuevo turno, que hace eso
         NuevoTurno();
         //mensajito en win texte, turno jugador x
-        m_Score.color = Color.clear;
-        m_WinText.text = "Turno Jugador " + (m_CurrentPlayer + 1);
+        m_Score.text = "";
+        //m_WinText.text = "Turno Jugador " + (m_CurrentPlayer + 1);
+        m_WinText.text = "Turno " + m_Jugadores[m_CurrentPlayer].m_ColoredPlayerText;
         m_WinText.color = Color.white;//esto por ahora, mas adelante el dare color d otra fomra para que sea diferente
         m_Jugadores[m_CurrentPlayer].DisableControl();//espero que no cause poroblemas
         yield return m_StartWait;
@@ -218,8 +225,8 @@ public class GameManager : MonoBehaviour {
 //tambien debo actualizar el numero de lanzamientos, al lanzar, no al terminar, pero de cada jugador
     private IEnumerator TurnPlay(){//aqui el jugaro podra moverse, y lanzar, aqui se establencen los calculos e cuantas pelotas salieron
         SetTextScore();
-        m_Score.color = Color.white;
-        m_WinText.color = Color.clear;
+        //m_Score.color = Color.white;
+        m_WinText.text = "";
         m_Jugadores[m_CurrentPlayer].EnableControl();//estas funciones podria omitirlas para probar e
         //para determinar que un turno acabo, debo verificar que todas la pelotas se hayan detenido, sino, sigo esperando
         //cuando se detuvieron todas las canicas esta funcion terminara
@@ -234,6 +241,7 @@ public class GameManager : MonoBehaviour {
         //auiq debo verificr si hubo algun ganador, y mostrar el mensaje respectivo, para esto debo recoorer en caso de que ya no queden pelotitas, quien fue el que gano, todo el array de jugadores
         //buscando el que tenga mas puntso, tener cuidado con los empatese,  podria desempatar algunos casos con  el numero de lanzamientos pero no se podra siempre
         FinalizarTurno();//los jugadores se quedan en ese posicin y al siguiente turno empiezan donde se quedaron
+        m_Score.text = "";
         m_Jugadores[m_CurrentPlayer].DisableControl();//estas cosas si funcion odiran estar dentro de finalizar turno
         //quiza disable control siinhabilita los rigidbody, lo cual hari fallar algunas cosas, podria solo desactivar aim, pero podria aun presionar fire1
         //aqui deberia mostrar un score general, pero por ahora solo pondre que finalizo el turno en caso de que no haya ganador, aqui debo verificar si lohubo

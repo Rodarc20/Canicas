@@ -5,6 +5,7 @@ using UnityEngine.UI;
 [Serializable]
 public class PlayerManager {//no estoy usando esta cosa, seria util si usara varios jugadores
     public Color m_PlayerColor;
+    [HideInInspector] public string m_ColoredPlayerText;
     public Transform SpawnPosition;//quiza no sea necesario, darle uso a esto, para no sltarme tantas clases en una sola linea
     public Slider m_ForceSlider;//ni este tampoco
     [HideInInspector] public int m_PlayerNumber = 1;
@@ -24,6 +25,7 @@ public class PlayerManager {//no estoy usando esta cosa, seria util si usara var
 
     public void Setup(){ //para establecer las referencias y valores inicales
         //m_Player = Instantiate(m_PlayerPrefab, m_SpawnPosition.position, m_SpawnPosition.rotation) as GameObject;//esta es para la forma 2//sin embargo este escript no es hernecia de MonoBehavior, por lo tanto no tengo la funcion Instantiate, por eso la forma 2 no funciona
+        m_ColoredPlayerText = "<color=#" + ColorUtility.ToHtmlStringRGB(m_PlayerColor) + ">Jugador " + m_PlayerNumber + "</color>";//parecidoa  html 
         m_FinLanzamiento = false;
         m_Aim = m_Player.GetComponent<PlayerAim>();
         m_Throw = m_Player.GetComponent<PlayerThrow>();
