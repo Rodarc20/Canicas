@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour {
     public void Awake(){
         SetCameraInitial();
         SpawnPlayers();
-        SpawnObjectives();
+        SpawnObjectivos();
     }
 
     public void Start(){
@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour {
          }
      }
 
-    public void SpawnObjectives(){//almacenados
+    public void SpawnObjectivos(){//almacenados
         m_Objetivos = new Transform [m_NumeroCanicas];//o quiza geerar esto al comienxo
         for(int i = 0; i < m_Objetivos.Length; i++){//deberi usar m_Obejtivos.Length
             GameObject obj = Instantiate(m_ObjetivoPrefab, posicionValida(), Quaternion.identity) as GameObject;//esta es la forma correcta de instancion para en la siguiente linea usar todos sus componentes
@@ -84,27 +84,14 @@ public class GameManager : MonoBehaviour {
         }
         return result;
     }
+
     public void SetCameraTarget(){//el movimiento deberia ser suave
         m_CameraControl.m_Player = m_Jugadores[m_CurrentPlayer].m_Player;
         //m_CameraControl.SetToPlayer();
     }
+    
     public void SetCameraInitial(){//no se si esto siempre es necesario, en lugar de llamar donde necesito a la linea de abajo
         m_CameraControl.SetStartPosition();
-    }
-
-    private void NuevoTurno(){//lla llamare en turn startign, aun que no se si es necesario tenrela aparte o dejarla dentro
-        //todos los jugadores debe iniciar deshabilitados, en esta funcion los habilitare uno a uno
-        m_Jugadores[m_CurrentPlayer].m_Player.SetActive(true);//y deberia estar listo para un nuevo lanzamiento o llamar a esa funcion
-        SetCameraTarget();
-        m_Jugadores[m_CurrentPlayer].NewThrow();
-        m_FinalizoLanzamiento = false;
-    }
-    private void FinalizarTurno(){
-        //SetCameraInitial();
-        m_Jugadores[m_CurrentPlayer].m_Player.SetActive(false);
-        Destroy(m_Jugadores[m_CurrentPlayer].m_CanicaPlayer.gameObject);
-        m_Score.text = "";
-        SetEndMessage();
     }
 
     private bool GetWinner(){
@@ -124,19 +111,12 @@ public class GameManager : MonoBehaviour {
         } //si max, se qued en si m_gamenanger se queda en null, entonces no hay ganador, por que todoshicieron 0 puntos, lo cual es imposible
         return win;
     }
-    void OnTriggerExit(Collider other){
-        GameObject canica = other.gameObject;
-        if(canica.layer == LayerMask.NameToLayer("Objetivo")){//tengo que revisar que sea un objetivo, para sumar, y ver si es un jugador para no sumar, en ambos casos la bola se elimna}
-            m_Jugadores[m_CurrentPlayer].m_ObjetivosObtenidos++;
-            Destroy(other.gameObject, 1f);//para que desaparezcan dos segundo despues, ahora el problema es que cuando destruyo una, no la he quitado del array
-            SetTextScore();//otr opcion es solo llamar cuando haya modicificacion//quiz esto se deba modificar de acuero al puntaje del jugador en turno
-            m_NumeroCanicas--;
-        }
-    }
+
     public void SetTextScore(){
         string s = m_Jugadores[m_CurrentPlayer].m_ColoredPlayerText + "\nPuntos: " + m_Jugadores[m_CurrentPlayer].m_ObjetivosObtenidos;
         m_Score.text = s;
     }
+
     public void SetEndMessage(){//se musetra al final de cada turno //por ahora no mostrara de forma ordenada las posiciones de los jugadores, 
         string message = "";//quiza solo deberia llamar a get winner en caso de que tenga las cnicas sean 0, en este caso la funcion get wiiner, que se ejecuta despues de esta, agregara al cominezo de mensaje
         if(m_NumeroCanicas == 0){
@@ -155,6 +135,17 @@ public class GameManager : MonoBehaviour {
         m_WinText.text = message;
         m_WinText.color = Color.white;
     }
+
+    void OnTriggerExit(Collider other){
+        GameObject canica = other.gameObject;
+        if(canica.layer == LayerMask.NameToLayer("Objetivo")){//tengo que revisar que sea un objetivo, para sumar, y ver si es un jugador para no sumar, en ambos casos la bola se elimna}
+            m_Jugadores[m_CurrentPlayer].m_ObjetivosObtenidos++;
+            Destroy(other.gameObject, 1f);//para que desaparezcan dos segundo despues, ahora el problema es que cuando destruyo una, no la he quitado del array
+            SetTextScore();//otr opcion es solo llamar cuando haya modicificacion//quiz esto se deba modificar de acuero al puntaje del jugador en turno
+            m_NumeroCanicas--;
+        }
+    }
+
     public void FixedUpdate(){//las preguntas deberian estar encapsuladas con respecto al jugador, quiza 
         //bool finalizoLanzamiento = true;//esto ahora deberia ser finalizoTurno chequear si alguien gano el juego, si ya temrino el juego, por mas que la ultima canica haya salido antes de que la pelota del jugador se haya detenedo, es alli debe terminar el turno y comprobar quein gano
         //m_FinalizoLanzamiento = m_FinalizoLanzamiento && (m_CanicaPlayer.IsSleeping() && m_CanicaPlayer.GetComponent<CanicaPlayer>().m_Fired);//di la calinca no se mueve, y ya fue disparada,entoces debe finalizar el alnzamineto
@@ -172,6 +163,21 @@ public class GameManager : MonoBehaviour {
             SetTextScore();//si no ha finalizado el turno, se muestra el score, pero el problema es que me lo esta mostrando al comienzo de cada turno, esta mejor de esta forma, pero en algun lado estoy desperdiciando lineas de codigo
         }
     }
+    
+    private void NuevoTurno(){//lla llamare en turn startign, aun que no se si es necesario tenrela aparte o dejarla dentro
+        //todos los jugadores debe iniciar deshabilitados, en esta funcion los habilitare uno a uno
+        m_Jugadores[m_CurrentPlayer].m_Player.SetActive(true);//y deberia estar listo para un nuevo lanzamiento o llamar a esa funcion
+        SetCameraTarget();
+        m_Jugadores[m_CurrentPlayer].NewThrow();
+        m_FinalizoLanzamiento = false;
+    }
+    private void FinalizarTurno(){
+        m_Jugadores[m_CurrentPlayer].m_Player.SetActive(false);
+        Destroy(m_Jugadores[m_CurrentPlayer].m_CanicaPlayer.gameObject);
+        m_Score.text = "";
+        SetEndMessage();
+    }
+
     private IEnumerator TurnStarting(){//mostrara un mensaje de a que jugador le toca jugar, por ahora todos usaran las mismas teclas, pero esto es opcinal, se puede modificar
         //a qui se llama a los setup del jugaodr de turno, o a la fucnion nuevo turno, que hace eso
         NuevoTurno();
@@ -186,7 +192,7 @@ public class GameManager : MonoBehaviour {
         SetTextScore();
         m_WinText.text = "";
         m_Jugadores[m_CurrentPlayer].EnableControl();//estas funciones podria omitirlas para probar e
-        //cuando se detuvieron todas las canicas esta funcion terminara
+        //cuando se detengan todas las canicas esta funcion terminara
         while(!m_FinalizoLanzamiento){//o podira ocmprobarun booleando de temrino lanzamiento, que tendria que sacarlo de la funcion en la que esta, y ponerlo en falso cada nuevo turno
             yield return null;
         }

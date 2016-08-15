@@ -9,9 +9,7 @@ public class CanicaObjetivo : MonoBehaviour {
         m_Rigidbody = GetComponent<Rigidbody>();
         //m_Move = false;
     }
-    public void Update(){
-        //print(m_Rigidbody.velocity);
-    }
+    
     public void FixedUpdate(){
         Vector3 direccion = m_Rigidbody.velocity.normalized;//direccion antes de aplicar la desaceleracion
         if(m_Desaceleracion != 0f){

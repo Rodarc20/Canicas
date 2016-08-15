@@ -49,7 +49,7 @@ public class PlayerThrow : MonoBehaviour {
         else if(Input.GetButton(m_ThrowButton) && !m_Throwed){//cuando mantendo presionado el boton pero aun no he disparado
             m_CurrentThrowForce += m_ChargeSpeed * Time.deltaTime;
             m_Fuerza.value = m_CurrentThrowForce;
-            //aqui tambien van modificaciones la slider de la fuerz de lanzamiento
+            //aqui tambien van modificaciones la slider de la fuerza de lanzamiento
         }
         if(Input.GetButtonUp(m_ThrowButton) && !m_Throwed){//cuadno suelto el boton y aun no he disparado, eliminado el elseif
             //m_Throwed = true;

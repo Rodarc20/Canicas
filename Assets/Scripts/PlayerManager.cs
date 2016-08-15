@@ -3,11 +3,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [Serializable]
-public class PlayerManager {//no estoy usando esta cosa, seria util si usara varios jugadores
+public class PlayerManager {
     public Color m_PlayerColor;
     [HideInInspector] public string m_ColoredPlayerText;
-    public Transform SpawnPosition;//quiza no sea necesario, darle uso a esto, para no sltarme tantas clases en una sola linea
-    public Slider m_ForceSlider;//ni este tampoco
+    //public Transform SpawnPosition;//quiza no sea necesario, darle uso a esto, para no sltarme tantas clases en una sola linea
+    //public Slider m_ForceSlider;//ni este tampoco, por que se los estoy pasando directamente a thorw en el gamenager
     [HideInInspector] public int m_PlayerNumber = 1;
 
     //public GameObject m_PlayerPrefab;//para la forma2, el prefab del jugador
@@ -16,7 +16,7 @@ public class PlayerManager {//no estoy usando esta cosa, seria util si usara var
     public Rigidbody m_CanicaPlayer;//referencia a la canica del jugador
     [HideInInspector] MeshRenderer[] m_Renders;
     private bool m_FinLanzamiento;
-    public int m_LanzamientosRealizados = 0;
+    //public int m_LanzamientosRealizados = 0;//si quisisera contar los lanzamientos de cada jugador
     public int m_ObjetivosObtenidos = 0;//cada jugaro contara sus puntajes, en el gamenayer cuando salgan todos solo vera quien obtuvo el mayor de los puntajes
 
     [HideInInspector] public PlayerAim m_Aim;//referencia a los scripts de m_Player
@@ -49,7 +49,6 @@ public class PlayerManager {//no estoy usando esta cosa, seria util si usara var
         m_Throw.enabled = false;
     }
     public bool FinalizoLanzamiento(){//esta funcion debe haberse asegurado de haber contado todo, para que desde aqui se desactive el gameobjet jugador(m_Player.SetActive(false)), o hacerlo desde el gamemanager
-        //if(!m_FinLanzamiento)//este if no es necesaio, solo erapor el error anterior
         if(!m_FinLanzamiento && m_CanicaPlayer != null)//este if no es necesaio, solo erapor el error anterior
             m_FinLanzamiento =  m_CanicaPlayer.IsSleeping() && m_CanicaPlayer.GetComponent<CanicaPlayer>().m_Fired;
         return m_FinLanzamiento;//no era esto
