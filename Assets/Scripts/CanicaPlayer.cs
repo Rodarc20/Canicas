@@ -39,9 +39,10 @@ public class CanicaPlayer : MonoBehaviour {
 
     public void Fire(Vector3 fuerza){
         if(!m_Fired){
-            m_Fired = true;
             //m_Move = true;
             m_Rigidbody.AddForce(fuerza, ForceMode.Impulse);
+            m_Fired = true;
+
             //deberia descativar el script PlayerThrow, y activarse denuevo cuando se cree una nuva canica
         }
     }
