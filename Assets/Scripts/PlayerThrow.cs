@@ -36,13 +36,14 @@ public class PlayerThrow : MonoBehaviour {
     }
     private void Update(){
         //si me paso del maximo de la barra no debo lanzar la canica, por que puede que el jugador aun quiera modificar la direccion, por ello podra aun moverse, solo se disparara cuando el jugador suelte la tecla de deisparo
+        //analizar estas logicas,
         if(m_CurrentThrowForce >= m_MaxForce && !m_Throwed){//si la fuerza esa mayor que el maximo, y aun no he disparado, entonces solo establesco el current en el max
             m_CurrentThrowForce = m_MaxForce;//se dispara solo cuando el jugador suslete la tecla
             m_Fuerza.value = m_CurrentThrowForce;//hay problemas con este if,buscar solucion
         }
         else if(Input.GetButtonDown(m_ThrowButton)){//cuando presioo por primera vez el boton,, su bi com pu
-            m_Throwed = false;
-            m_CurrentThrowForce = m_MinForce;
+            //m_Throwed = false;//si apreto espacin denuevo despues de lanzar esta varialbe cambiara a falso, evitarlo
+            //m_CurrentThrowForce = m_MinForce;
             m_Fuerza.value = m_CurrentThrowForce;
         }
         else if(Input.GetButton(m_ThrowButton) && !m_Throwed){//cuando mantendo presionado el boton pero aun no he disparado
