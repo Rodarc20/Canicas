@@ -22,5 +22,5 @@ public class CameraControl : MonoBehaviour {//esta cosa deberia esar en dentro d
     }
     public void SetToPlayer(){//seria necesaria si utilizo varios jugadores
         SetStartPosition();//para que sigan al jugador y no el 
-    }
+    }//mejorar el contol de la camara, para que no salte d jugadro a jugadro, si no que se traslade alrededor de la zona de juego
 }

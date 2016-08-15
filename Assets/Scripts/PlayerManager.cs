@@ -44,7 +44,8 @@ public class PlayerManager {//no estoy usando esta cosa, seria util si usara var
         m_Throw.enabled = false;
     }
     public bool FinalizoLanzamiento(){//esta funcion debe haberse asegurado de haber contado todo, para que desde aqui se desactive el gameobjet jugador(m_Player.SetActive(false)), o hacerlo desde el gamemanager
-        if(!m_FinLanzamiento && m_CanicaPlayer != null)
+        //if(!m_FinLanzamiento)//este if no es necesaio, solo erapor el error anterior
+        if(!m_FinLanzamiento && m_CanicaPlayer != null)//este if no es necesaio, solo erapor el error anterior
             m_FinLanzamiento =  m_CanicaPlayer.IsSleeping() && m_CanicaPlayer.GetComponent<CanicaPlayer>().m_Fired;
         return m_FinLanzamiento;//no era esto
         //hay un poroblema con esta funcion, por alguna razon se llaa, pero cuadno m_CanicaPlayer no existe, provicando errores

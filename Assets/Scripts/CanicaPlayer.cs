@@ -19,7 +19,7 @@ public class CanicaPlayer : MonoBehaviour {
         }
     }
     public void FixedUpdate(){
-        if(m_Fired){
+        if(m_Fired && m_Rigidbody != null){
             Vector3 direccion = m_Rigidbody.velocity.normalized;
             if(m_Desaceleracion != 0f){
                 m_Rigidbody.AddForce(m_Rigidbody.velocity.normalized * -1 * m_Desaceleracion, ForceMode.Acceleration);//esta desaceleracion funciona
