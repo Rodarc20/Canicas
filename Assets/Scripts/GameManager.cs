@@ -64,11 +64,14 @@ public class GameManager : MonoBehaviour {
             //GameObject obj = Instantiate(m_ObjetivoPrefab, posicionValida(), Quaternion.identity) as GameObject;//esta es la forma correcta de instancion para en la siguiente linea usar todos sus componentes
             GameObject obj = Instantiate(m_ObjetivoPrefab, posicionValida(), Quaternion.identity) as GameObject;//
             //en teoria falta asignar a m_Onjetivos, los transform correctos, no se por que esta funcionanado
+            m_Objetivos[i] = obj.GetComponent<Transform>();
         }        
     }
 
     private Vector3 posicionValida(){
+        Vector3 res;
         Transform posicion = Instantiate(m_SpawnPosition, new Vector3 (0f, 0.5f, 0f), Quaternion.identity) as Transform;//donde probare las posiciion generada, este es una clon del objeto trasnsform
+        //debo destruir este objeto
         //no es aconsejable usar el transform de este gamobject, falla
         posicion.position = new Vector3 (0f, 0.5f, Random.Range(0f, 8f));//podira mezclasr la anterior
         posicion.RotateAround(transform.position, Vector3.up, Random.Range(0f, 360f));//obtener defrente la rotacion*/
@@ -76,7 +79,9 @@ public class GameManager : MonoBehaviour {
             posicion.position = new Vector3 (0f, 0.5f, Random.Range(0f, 8f));//podira mezclasr la anterior
             posicion.RotateAround(transform.position, Vector3.up, Random.Range(0f, 360f));//obtener defrente la rotacion*/
         }
-        return posicion.position;
+        res = posicion.position;
+        Destroy(posicion.gameObject);
+        return res;
     }
 
     private bool EsValido(Transform posicion){//mejorar esta funcion
