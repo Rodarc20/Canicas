@@ -4,8 +4,8 @@ using UnityEngine.UI;//aqui hare modificaciones al ui, por ejemplo la barra de f
 public class PlayerThrow : MonoBehaviour {
     public int m_PlayerNumber = 1;
     public Slider m_Fuerza;
-    public float m_MinForce = 0f;
-    public float m_MaxForce = 100f;
+    public float m_MinForce = 10f;//estos valores los deberia recogerdel game manager
+    public float m_MaxForce = 80f;//estos valores se establecen en el prefab, quiza no deberiaser asi, 
     public float m_MaxChargeTime = 2f;//un segudno en cargar toda la barra de fuerza
     public GameObject m_CanicaPlayerPrefab;
     public GameObject m_CanicaPlayer;//instancia de una canica de jugador
