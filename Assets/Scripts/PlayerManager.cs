@@ -14,12 +14,10 @@ public class PlayerManager {//no estoy usando esta cosa, seria util si usara var
     [HideInInspector] public GameObject m_Player;//esta sera la instancia de un objeto jugadora, hay dos formas de instanciar este objeto, a travez del gamemanager, y otra a travez de este script, probar ambas
     //el anterior parametro puede que es publico para poder acceder a el desde afuera
     public Rigidbody m_CanicaPlayer;//referencia a la canica del jugador
-    //tambien deberian tener referencias al gamezone, para que ellos cuenten cuando sea su turno
     private bool m_FinLanzamiento;
     public int m_LanzamientosRealizados = 0;
     public int m_ObjetivosObtenidos = 0;//cada jugaro contara sus puntajes, en el gamenayer cuando salgan todos solo vera quien obtuvo el mayor de los puntajes
 
-//tambien deberian estar oculos, o conservarlos privados pero acceder a ellos a travez de funciones
     [HideInInspector] public PlayerAim m_Aim;//referencia a los scripts de m_Player
     [HideInInspector] public PlayerThrow m_Throw;//esto son para poder habilitar y deshabilitar el control una vez que se realizo un lanzamiento, aun que dberia hacerlo de forma iterna
 
