@@ -14,6 +14,7 @@ public class PlayerManager {//no estoy usando esta cosa, seria util si usara var
     [HideInInspector] public GameObject m_Player;//esta sera la instancia de un objeto jugadora, hay dos formas de instanciar este objeto, a travez del gamemanager, y otra a travez de este script, probar ambas
     //el anterior parametro puede que es publico para poder acceder a el desde afuera
     public Rigidbody m_CanicaPlayer;//referencia a la canica del jugador
+    [HideInInspector] MeshRenderer[] m_Renders;
     private bool m_FinLanzamiento;
     public int m_LanzamientosRealizados = 0;
     public int m_ObjetivosObtenidos = 0;//cada jugaro contara sus puntajes, en el gamenayer cuando salgan todos solo vera quien obtuvo el mayor de los puntajes
@@ -33,6 +34,10 @@ public class PlayerManager {//no estoy usando esta cosa, seria util si usara var
         m_FinLanzamiento = false;
         m_Throw.Setup();//talvez no sea necesario, ademas podria hacer que retorne la referencia al rigidbbody de la canica para quepueda ser util, si la quisiera conservar
         m_CanicaPlayer = m_Throw.m_CanicaPlayer.GetComponent<Rigidbody>();
+        m_Renders = m_CanicaPlayer.GetComponents<MeshRenderer>();
+        for(int i = 0; i < m_Renders.Length; i++){
+            m_Renders[i].material.color = m_PlayerColor;
+        }
         //aun que tal vez no sea necesario
     }
     public void EnableControl(){
