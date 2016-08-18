@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour {
              m_Jugadores[i].m_Aim.m_CenterGameZone = m_GameZone.GetComponent<Transform>();
              m_Jugadores[i].m_Aim.m_SpawnPoint = m_SpawnPosition;
              m_Jugadores[i].m_Throw.m_Fuerza = m_ForceSlider;
+             //m_Jugadores[i].m_Throw.m_PlayerNumber = i+1;//no se si esto lo deba hacer aqui o no en el player manager, cuando hago setup
          }
      }
 

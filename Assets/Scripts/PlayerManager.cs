@@ -28,6 +28,7 @@ public class PlayerManager {
         m_FinLanzamiento = false;
         m_Aim = m_Player.GetComponent<PlayerAim>();
         m_Throw = m_Player.GetComponent<PlayerThrow>();
+        m_Throw.m_PlayerNumber = m_PlayerNumber;
         m_Player.SetActive(false);//todos los jugadores deben iniciar inactivos, los cativara y desactivara el gamemanager cuadno seasu turno
     }
     public void NewThrow(){//esta se llamara al inicio de cada turno, al igual quiza que enable control, la camara tambien se debe asiganar a cada jugador correspondiento

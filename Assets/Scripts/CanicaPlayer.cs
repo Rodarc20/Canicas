@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class CanicaPlayer : MonoBehaviour {
     public bool m_Fired;//si ha sido disparado
+    [HideInInspector] public int m_PlayerNumber;
     public Rigidbody m_Rigidbody;
     public Transform m_Player;//este es la posicion del Jugador
     public PlayerThrow m_PlayerThrow;

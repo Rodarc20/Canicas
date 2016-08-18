@@ -33,9 +33,13 @@ public class PlayerThrow : MonoBehaviour {
         m_Throwed = false;
         if(m_CanicaPlayer){
             m_ScriptCP = m_CanicaPlayer.GetComponent<CanicaPlayer>();
+            m_ScriptCP.m_PlayerNumber = m_PlayerNumber;
             m_ScriptCP.m_Player = transform; //m_CanicaPlayer.GetComponent<CanicaPlayer>().m_Player = transform;
             m_ScriptCP.m_PlayerThrow = GetComponent<PlayerThrow>();
         }
+        //no debo instanciar canicas cuando quiera, debo instanciar algunas especificas, o ejor dicho tener todas instanciadas en un array de canicas, pero estas canicas siempre deben conservar ss propiedases, es decir de quien era y el color por jemeplo
+        //las canicas de los jugadores no se destruyen, solo pasan a tener un nuevo propietrio, tener cuidado con esto, y como haer para que conservern o cambien los propietarios
+        //el problema es ageragr y eliminar de un array, para eso tengo que tener una funcion, copiar pegar y eliminar
     }
     private void Update(){
         //si me paso del maximo de la barra no debo lanzar la canica, por que puede que el jugador aun quiera modificar la direccion, por ello podra aun moverse, solo se disparara cuando el jugador suelte la tecla de deisparo
@@ -65,3 +69,5 @@ public class PlayerThrow : MonoBehaviour {
         m_Throwed = true;//esto funionando pero quiza esto deberia ir antes, dejarolo asi por ahora
     }//una ve z que se ha disparado, debo deshabilitar los controles, la pelota sigue por su cuenta
 }
+//este script debe tener la capacidad de almacenar todas las canicas que el jugador posee, o selecionarla del playermanager, si el playermanagger sea el que las posea,
+//este script tambien debe ser capaz de tener un pequeño menu para que el ususario pueda escoger la canica a usar , o tambien en el player manager, por el hecho de que quiza tenga que estar en una funcion como pdate, es preferible que este en un script que hereda de monobehavior
