@@ -1,0 +1,3 @@
+//tengo que hacer que los botones conserven un id, es decir cada botnon tendra un pequeño script para que almacene su indice, el cual me dice a que canica pertenece,
+//igual quiza almacena mas, por ejemplo imagenes de los distintos tipos de canicas, ya que no se aun como poner objetos 3d en el ui
+//asi mismo, el panel debe tener un script, que podria ser este selector, para calcular dimencsion, y posiciones de los botones, ya que el numero de canicas sempre es variable, es decir debo estar instancinado botones constantemente
