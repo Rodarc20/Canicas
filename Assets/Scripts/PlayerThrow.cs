@@ -14,11 +14,12 @@ public class PlayerThrow : MonoBehaviour {
     private string m_ThrowButton;
     private float m_CurrentThrowForce;
     private float m_ChargeSpeed;
-    private bool m_Throwed;
+    [HideInInspector] public bool m_Throwed;
 
     void Start(){
         m_ThrowButton = "Fire1";
         m_ChargeSpeed = (m_MaxForce - m_MinForce) / m_MaxChargeTime;
+        m_Throwed = false;
         //Setup()//por ahora lo llamo dentro de spawnPlayer en el gamemanager
     }
     private void OnEnable(){
@@ -29,9 +30,11 @@ public class PlayerThrow : MonoBehaviour {
         m_Throwed = false;
         m_CurrentThrowForce = m_MinForce;
         m_CanicaPlayer = Instantiate(m_CanicaPlayerPrefab, transform.position, transform.rotation) as GameObject;
+        m_Throwed = false;
         if(m_CanicaPlayer){
             m_ScriptCP = m_CanicaPlayer.GetComponent<CanicaPlayer>();
             m_ScriptCP.m_Player = transform; //m_CanicaPlayer.GetComponent<CanicaPlayer>().m_Player = transform;
+            m_ScriptCP.m_PlayerThrow = GetComponent<PlayerThrow>();
         }
     }
     private void Update(){
@@ -58,7 +61,7 @@ public class PlayerThrow : MonoBehaviour {
         //hay un erro que impide que dispare, por ejemplo si mntego presionado espacio antes de que me habiliten el disparo
     }
     private void Fire(){
-        m_Throwed = true;
         m_ScriptCP.Fire(transform.forward * m_CurrentThrowForce);//ninguna de las dos funciona, el proble es que en cada update lo regresa a la posicion del jugador, cuando no este disparando
+        m_Throwed = true;//esto funionando pero quiza esto deberia ir antes, dejarolo asi por ahora
     }//una ve z que se ha disparado, debo deshabilitar los controles, la pelota sigue por su cuenta
 }

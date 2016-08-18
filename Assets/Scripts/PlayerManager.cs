@@ -15,7 +15,7 @@ public class PlayerManager {
     //el anterior parametro puede que es publico para poder acceder a el desde afuera
     public Rigidbody m_CanicaPlayer;//referencia a la canica del jugador
     [HideInInspector] MeshRenderer[] m_Renders;
-    private bool m_FinLanzamiento;
+    private bool m_FinLanzamiento = false;
     //public int m_LanzamientosRealizados = 0;//si quisisera contar los lanzamientos de cada jugador
     public int m_ObjetivosObtenidos = 0;//cada jugaro contara sus puntajes, en el gamenayer cuando salgan todos solo vera quien obtuvo el mayor de los puntajes
 
@@ -38,6 +38,8 @@ public class PlayerManager {
         for(int i = 0; i < m_Renders.Length; i++){
             m_Renders[i].material.color = m_PlayerColor;
         }
+        m_CanicaPlayer.GetComponentInChildren<ParticleSystem>().startColor = m_PlayerColor;
+        m_CanicaPlayer.GetComponentInChildren<ParticleSystem>().Play();
         //aun que tal vez no sea necesario
     }
     public void EnableControl(){
@@ -50,7 +52,9 @@ public class PlayerManager {
     }
     public bool FinalizoLanzamiento(){//esta funcion debe haberse asegurado de haber contado todo, para que desde aqui se desactive el gameobjet jugador(m_Player.SetActive(false)), o hacerlo desde el gamemanager
         if(!m_FinLanzamiento && m_CanicaPlayer != null)//este if no es necesaio, solo erapor el error anterior
-            m_FinLanzamiento =  m_CanicaPlayer.IsSleeping() && m_CanicaPlayer.GetComponent<CanicaPlayer>().m_Fired;
+            m_FinLanzamiento =  m_CanicaPlayer.IsSleeping() && m_CanicaPlayer.GetComponent<CanicaPlayer>().m_Fired;//deberia comprobar que plyerthrow teng ifred
+            //m_FinLanzamiento =  m_CanicaPlayer.IsSleeping() && m_CanicaPlayer.GetComponent<CanicaPlayer>().m_Fired && m_Throw.m_Throwed;// aun falla parece haber desaparecido el bug
+
         return m_FinLanzamiento;//no era esto
         //hay un poroblema con esta funcion, por alguna razon se llaa, pero cuadno m_CanicaPlayer no existe, provicando errores
     }

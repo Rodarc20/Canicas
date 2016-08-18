@@ -30,12 +30,17 @@ public class CanicaPlayer : MonoBehaviour {
                 //hay un pequeño error al comienzo del lanzamiento, me deja entrara a esta funcion uan vez antes de que entre en contacto con el piso despues de lanzarla
             }
         }
+        else{
+            if(m_PlayerThrow.m_Throwed && m_Rigidbody.velocity != Vector3.zero){//aqui compruebo el sript player trow, ya no es necesario hacerlo e el player manager, mejorar la velocidad de esto
+                m_Fired = true;
+            }
+        }
     }
 
     public void Fire(Vector3 fuerza){
         if(!m_Fired){
             m_Rigidbody.AddForce(fuerza, ForceMode.Impulse);
-            m_Fired = true;
+            //m_Fired = true;// para esta apicacion que usa fuerza fisicas, seria coveniete esta variabe comprobar recien cuadno este en movimineto, no antes, es decir comprobar la canica si ya se movio
             //deberia descativar el script PlayerThrow, y activarse denuevo cuando se cree una nuva canica
         }
     }
