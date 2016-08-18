@@ -224,3 +224,10 @@ public class GameManager : MonoBehaviour {
         SceneManager.LoadScene(0);//no ha cargado bien las luces de esta cosa, pero no falla en la buid
     }
 }   
+
+//cuadno sale una canica, si es de un jugador, se la debo entregar al jugador que la hya sacado, es decir, del que sea el turno, de esta fomra tenria que elminar la canica que el jugadro usara
+//del array de canicas del jugadro, entonces todas las canicas qe salgan de la zona, que sean de tipo jugador, se que las agrego al array, del jugador, esto podria ser costo dependiendo de la funion, pero solo es leiminar de la lista, mas no destruccion del objeto,
+//las unicas canicas que deben detruirse son las obejietivo
+//hay ciertas porpiedades que deben cambiar cuando la canica regresa al jugador, por ejemplo el color, el color se debe cambiar, de acuerdo al jugadro que posea la canica
+//asi mismo las propiedades del puntaje, por ejemplo las canicas del otro jugadro suman el doble, podria tener un atribuo que indique el factor, y que siempre lo llame al momento de recoger canicas, 
+//recordad que reoer la cnica del jugador no suma puntos, es decir cuando coincida el player number de la canica, con el del jugador

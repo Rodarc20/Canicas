@@ -32,3 +32,6 @@ public class GroundControler : MonoBehaviour {//para agregar desaceleracion
 }
 //otra alternativa es que esta calse tenga su funcion fixed update, y todos las canicas que entren se les aplicadesaceleracion en su moviemineto, el problema es qperderia control en la condicion para poner a 0 el movimiento
 //o tal vez no
+//cuadno sale una canica, si es de un jugador, se la debo entregar al jugador que la hya sacado, es decir, del que sea el turno, de esta fomra tenria que elminar la canica que el jugadro usara
+//del array de canicas del jugadro, entonces todas las canicas qe salgan de la zona, que sean de tipo jugador, se que las agrego al array, del jugador, esto podria ser costo dependiendo de la funion, pero solo es leiminar de la lista, mas no destruccion del objeto,
+//las unicas canicas que deben detruirse son las obejietivo
