@@ -38,7 +38,7 @@ public class PlayerManager {
         for(int i = 0; i < m_Renders.Length; i++){
             m_Renders[i].material.color = m_PlayerColor;
         }
-        m_CanicaPlayer.GetComponentInChildren<ParticleSystem>().startColor = m_PlayerColor;
+        m_CanicaPlayer.GetComponentInChildren<ParticleSystem>().startColor = Color.Lerp(m_PlayerColor, Color.white, 0.1f);
         m_CanicaPlayer.GetComponentInChildren<ParticleSystem>().Play();
         //aun que tal vez no sea necesario
     }
