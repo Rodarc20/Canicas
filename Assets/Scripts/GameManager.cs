@@ -181,6 +181,7 @@ public class GameManager : MonoBehaviour {
 
     private IEnumerator TurnStarting(){//mostrara un mensaje de a que jugador le toca jugar, por ahora todos usaran las mismas teclas, pero esto es opcinal, se puede modificar
         //a qui se llama a los setup del jugaodr de turno, o a la fucnion nuevo turno, que hace eso
+        //aqui deberia tener un menur para que los jugadroes escojan cual es la canica a usar, de las que posee, si el ugador no tiene canicas, no deberia participar, y se deberia saltar al siguiente jugadro, comprobar eso en el tunr ending, cuando escoja deberia terminar esta funcion, quiza a lo mucho agregar un segundo mas
         NuevoTurno();
         m_Score.text = "";
         m_WinText.text = "Turno " + m_Jugadores[m_CurrentPlayer].m_ColoredPlayerText;

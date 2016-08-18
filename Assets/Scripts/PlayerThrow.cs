@@ -71,3 +71,6 @@ public class PlayerThrow : MonoBehaviour {
 }
 //este script debe tener la capacidad de almacenar todas las canicas que el jugador posee, o selecionarla del playermanager, si el playermanagger sea el que las posea,
 //este script tambien debe ser capaz de tener un pequeño menu para que el ususario pueda escoger la canica a usar , o tambien en el player manager, por el hecho de que quiza tenga que estar en una funcion como pdate, es preferible que este en un script que hereda de monobehavior
+
+
+// un objeto instaccinde sea hijo de otro, solo debo haccer objeto.transform.parent = gameobject.transfor, el segundo sera el padre del de la izquierda
